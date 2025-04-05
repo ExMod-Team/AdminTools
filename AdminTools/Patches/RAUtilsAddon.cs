@@ -63,22 +63,22 @@ namespace AdminTools.Patches
                         {
                             switch (simplifyTeam)
                             {
-                                case SimplifyTeam.ALIVE:
+                                case SimplifyTeam.Alive:
                                     list.AddRange(Player.List.Where(p => p.IsAlive).Select(x => x.ReferenceHub));
                                     break;
-                                case SimplifyTeam.HUMAN:
+                                case SimplifyTeam.Human:
                                     list.AddRange(Player.List.Where(p => p.IsHuman).Select(x => x.ReferenceHub));
                                     break;
-                                case SimplifyTeam.CIVILIAN:
+                                case SimplifyTeam.Civilian:
                                     list.AddRange(Player.List.Where(p => p.Role.Team is Team.Scientists or Team.ClassD).Select(x => x.ReferenceHub));
                                     break;
-                                case SimplifyTeam.MILITARY:
+                                case SimplifyTeam.Military:
                                     list.AddRange(Player.List.Where(p => p.Role.Team is Team.FoundationForces or Team.ChaosInsurgency).Select(p => p.ReferenceHub));
                                     break;
-                                case SimplifyTeam.STAFF:
+                                case SimplifyTeam.Staff:
                                     list.AddRange(Player.List.Where(p => p.RemoteAdminAccess).Select(p => p.ReferenceHub));
                                     break;
-                                case SimplifyTeam.NOSTAFF:
+                                case SimplifyTeam.NoStaff:
                                     list.AddRange(Player.List.Where(p => !p.RemoteAdminAccess).Select(p => p.ReferenceHub));
                                     break;
                                 default:
@@ -109,23 +109,79 @@ namespace AdminTools.Patches
             return false;
         }
 
+        /// <summary>
+        /// <see cref="Team"/> simplified.
+        /// </summary>
         public enum SimplifyTeam
         {
-            // Team but simple enum
-            SCP,
-            MTF,
-            CI,
-            SCI,
-            CLD,
-            RIP,
-            TUT,
-            // Additional (Not Team)
-            ALIVE,
-            HUMAN,
-            CIVILIAN,
-            MILITARY,
-            NOSTAFF,
-            STAFF,
+            /// <summary>
+            /// Refer to <see cref="Team.SCPs"/>.
+            /// </summary>
+            Scp = Team.SCPs,
+            /// <summary>
+            /// Refer to <see cref="Team.FoundationForces"/>.
+            /// </summary>
+            Mtf = Team.FoundationForces,
+            /// <summary>
+            /// Refer to <see cref="Team.FoundationForces"/>.
+            /// </summary>
+            Ntf = Team.FoundationForces,
+            /// <summary>
+            /// Refer to <see cref="Team.ChaosInsurgency"/>.
+            /// </summary>
+            Ci = Team.ChaosInsurgency,
+            /// <summary>
+            /// Refer to <see cref="Team.ChaosInsurgency"/>.
+            /// </summary>
+            Chaos = Team.ChaosInsurgency,
+            /// <summary>
+            /// Refer to <see cref="Team.Scientists"/>.
+            /// </summary>
+            Science = Team.Scientists,
+            /// <summary>
+            /// Refer to <see cref="Team.Scientists"/>.
+            /// </summary>
+            Scientist = Team.Scientists,
+            /// <summary>
+            /// Refer to <see cref="Team.ClassD"/>.
+            /// </summary>
+            Cld = Team.ClassD,
+            /// <summary>
+            /// Refer to <see cref="Team.Dead"/>.
+            /// </summary>
+            Rip = Team.Dead,
+            /// <summary>
+            /// Refer to <see cref="Team.OtherAlive"/>.
+            /// </summary>
+            Tut = Team.OtherAlive,
+            /// <summary>
+            /// Refer to <see cref="Team.OtherAlive"/>.
+            /// </summary>
+            Tutorial = Team.OtherAlive,
+            /// <summary>
+            /// All alive players.
+            /// </summary>
+            Alive,
+            /// <summary>
+            /// All alive human players.
+            /// </summary>
+            Human,
+            /// <summary>
+            /// All alive civilian players.
+            /// </summary>
+            Civilian,
+            /// <summary>
+            /// All alive military players.
+            /// </summary>
+            Military,
+            /// <summary>
+            /// All non staff players.
+            /// </summary>
+            NoStaff,
+            /// <summary>
+            /// All staff players.
+            /// </summary>
+            Staff,
         }
     }
 }
