@@ -30,7 +30,7 @@ namespace AdminTools
 		public override string Author { get; } = "Exiled-Team";
 		public override string Name { get; } = "Admin Tools";
 		public override string Prefix { get; } = "AdminTools";
-		public override PluginPriority Priority { get; } = (PluginPriority)1;
+		public override PluginPriority Priority { get; } = PluginPriority.Highest;
 		public override Version Version { get; } = new(8, 0, 0);
         public override Version RequiredExiledVersion { get; } = new(8, 14, 1);
 
