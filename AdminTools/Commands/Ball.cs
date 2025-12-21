@@ -45,7 +45,7 @@ namespace AdminTools.Commands
                 speed = 5;
 
             if (!bool.TryParse(arguments.ElementAtOrDefault(2), out bool isMute) || !isMute)
-                Cassie.Message("pitch_1.5 xmas_bouncyballs");
+                LabApi.Features.Wrappers.Cassie.Message("pitch_1.5 xmas_bouncyballs", "");
 
             foreach (Player p in players)
             {
