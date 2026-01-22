@@ -27,6 +27,9 @@ namespace AdminTools
 
         public static void SavingPlayerData(this Player player)
         {
+            if (player == null) 
+                return;
+            
             List<string> overwatchRead = Main.Overwatch;
 
             string userId = player.UserId;

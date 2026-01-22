@@ -69,11 +69,14 @@ namespace AdminTools
                 ev.Player.IsMuted = false;
 
             if (!Round.IsEnded)
-                Extensions.SavingPlayerData(ev.Player);
+                ev.Player.SavingPlayerData();
         }
 
         public void OnPlayerVerified(VerifiedEventArgs ev)
         {
+            if (ev.Player == null)
+                return;
+            
             if (Main.JailedPlayers.ContainsKey(ev.Player.UserId))
                 Commands.Jail.DoJail(ev.Player, true);
 
