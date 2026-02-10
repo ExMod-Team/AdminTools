@@ -1,4 +1,4 @@
-﻿using CommandSystem;
+using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
@@ -20,7 +20,18 @@ namespace AdminTools.Commands
 
         public string Description { get; } = "Jails or unjails a user";
 
-        public string[] Usage { get; } = new string[] { "%player%", "[IsJail]"};
+        public string[] Usage { get; } = new string[] { "%player%", "[IsJail]" };
+
+        public Jail()
+        {
+            // Check if the command already exists in the RemoteAdminCommandHandler
+            var existing = CommandHandler.Base.Commands.FirstOrDefault(x => x.Name.Equals(Command, StringComparison.OrdinalIgnoreCase));
+            if (existing != null)
+            {
+                Log.Warn($"Jail command already exists as '{existing.Name}', skipping registration.");
+                throw new InvalidOperationException("Jail command already registered."); // prevents double registration
+            }
+        }
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -42,14 +53,13 @@ namespace AdminTools.Commands
                 response = $"Player not found: {arguments.At(0)}";
                 return false;
             }
-            
+
             bool? isJail = null;
             if (bool.TryParse(arguments.ElementAtOrDefault(1), out bool result))
                 isJail = result;
 
             foreach (Player ply in players)
             {
-                
                 if (isJail is true)
                     DoJail(ply);
                 else if (isJail is false)
@@ -65,6 +75,7 @@ namespace AdminTools.Commands
             response = $"Jail command has run successfully.\n{Extensions.LogPlayers(players)}";
             return true;
         }
+
         public static void DoJail(Player player, bool skipadd = false)
         {
             if (Main.JailedPlayers.ContainsKey(player.UserId))
